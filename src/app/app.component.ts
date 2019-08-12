@@ -23,6 +23,8 @@ export class AppComponent implements OnInit {
 
   @ViewChild('updateDialog', { static: true }) updateDialog: TemplateRef<any>;
 
+  @ViewChild('outOfDateDialog', { static: true }) outOfDateDialog: TemplateRef<any>;
+
   title = environment.name;
 
   version = environment.version;
@@ -53,6 +55,7 @@ export class AppComponent implements OnInit {
     this.enableDarkTheme();
     this.notification$.subscribe();
     this.manageUpdate();
+    this.noticeOutOfDate();
     this.router.events.pipe(
       filter(evt => evt instanceof NavigationEnd),
       tap(() => { if (environment.production) { fathom('trackPageview'); } }),
@@ -69,6 +72,13 @@ export class AppComponent implements OnInit {
     this.update.available.subscribe(() =>
       this.dialogService.open(this.updateDialog, { context: 'Reload to apply changes', hasBackdrop: true })
     );
+  }
+
+  noticeOutOfDate() {
+    this.dialogService.open(this.outOfDateDialog, {
+      context: 'New site: ',
+      hasBackdrop: true
+    });
   }
 
   closeDialog() {

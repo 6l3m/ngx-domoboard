@@ -27,3 +27,15 @@
     </nb-card-footer>
   </nb-card>
 </ng-template>
+
+<ng-template #outOfDateDialog let-data let-ref="outOfDateRef">
+  <nb-card>
+    <nb-card-header id="dialog-header" class="center">Repo has changed!</nb-card-header>
+    <nb-card-body class="center dialog-body">
+      {{ data }}<a href="https://domoticz.github.io/ngx-domoboard/">https://domoticz.github.io/ngx-domoboard/</a>
+    </nb-card-body>
+    <nb-card-footer class="center">
+      <button nbButton (click)="ref.close()">OK</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
